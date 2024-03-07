@@ -2,7 +2,7 @@
 {% block content %}
 
 <div class="d-flex flex-column flex-md-row p-4 gap-4 align-items-center justify-content-center">
-  <h1>Disney Wait Time Predictions</h1>
+	<h1>Disney Wait Time Predictions</h1>
 </div>
 <div class="d-flex flex-column flex-md-row p-1 gap-4 align-items-center justify-content-center">
 	{{ ride }}
@@ -12,17 +12,17 @@
 </div>
 <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
 <div class="d-flex flex-column flex-md-row p-4 gap-4 align-items-center justify-content-center">
-  <div style="width:100%; max-width:800px;margin-inline:1.5em">
+	<div style="width:100%; max-width:800px;margin-inline:1.5em">
 		<table class="table table-striped table-sm">
-      <thead>
-        <tr>
-          <th scope="col">Time</th>
-          <th scope="col">Dense50</th>
-          <th scope="col">LSTM50</th>
-          <th scope="col">LSTMall</th>
-        </tr>
-      </thead>
-      <tbody>
+			<thead>
+				<tr>
+					<th scope="col">Time</th>
+					<th scope="col">Dense50</th>
+					<th scope="col">LSTM50</th>
+					<th scope="col">LSTMall</th>
+				</tr>
+			</thead>
+			<tbody>
 				{% for row in predictions %}
 					<tr>
 						<td>{{ row['time'] }}</td>
@@ -30,10 +30,10 @@
 						<td><span class="badge text-bg-success rounded-pill">{{ row['lstm50'] }} min</span></td>
 						<td><span class="badge text-bg-warning rounded-pill">?</span></td>
 					</tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.2/dist/chart.umd.js" integrity="sha384-eI7PSr3L1XLISH8JdDII5YN/njoSsxfbrkCTnJrzXt+ENP5MOVBxD+l6sEG4zoLp" crossorigin="anonymous"></script>
@@ -42,54 +42,54 @@
 /* globals Chart:false */
 
 (() => {
-  'use strict'
+	'use strict'
 
-  // Graphs
-  const ctx = document.getElementById('myChart')
-  // eslint-disable-next-line no-unused-vars
-  const myChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: [
+	// Graphs
+	const ctx = document.getElementById('myChart')
+	// eslint-disable-next-line no-unused-vars
+	const myChart = new Chart(ctx, {
+		type: 'line',
+		data: {
+			labels: [
 			{% for row in predictions %}
-        '{{ row['time'] }}',
+				'{{ row['time'] }}',
 			{% endfor %}
-      ],
-      datasets: [{
-        data: [
+			],
+			datasets: [{
+				data: [
 				{% for row in predictions %}
 					{{ row['dense50'] }},
 				{% endfor %}
-        ],
-        lineTension: 0,
-        backgroundColor: 'transparent',
-        borderColor: '#007bff',
-        borderWidth: 4,
-        pointBackgroundColor: '#007bff'
-      },{
-        data: [
+				],
+				lineTension: 0,
+				backgroundColor: 'transparent',
+				borderColor: '#007bff',
+				borderWidth: 4,
+				pointBackgroundColor: '#007bff'
+			},{
+				data: [
 				{% for row in predictions %}
 					{{ row['lstm50'] }},
 				{% endfor %}
-        ],
-        lineTension: 0,
-        backgroundColor: 'transparent',
-        borderColor: '#198754',
-        borderWidth: 4,
-        pointBackgroundColor: '#198754'
-      }]
-    },
-    options: {
-      plugins: {
-        legend: {
-          display: false
-        },
-        tooltip: {
-          boxPadding: 3
-        }
-      }
-    }
-  })
+				],
+				lineTension: 0,
+				backgroundColor: 'transparent',
+				borderColor: '#198754',
+				borderWidth: 4,
+				pointBackgroundColor: '#198754'
+			}]
+		},
+		options: {
+			plugins: {
+				legend: {
+					display: false
+				},
+				tooltip: {
+					boxPadding: 3
+				}
+			}
+		}
+	})
 })()
 </script>
 {% endblock %}
