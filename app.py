@@ -26,7 +26,7 @@ def get_all_predictions(day):
 def get_predictions(ride, day):
 	predictions = {}
 	day_int = wait_times.date_to_int(day)
-	for model in ["dense50"]:
+	for model in ["dense50", "lstm50"]:
 		with open(f"predictions/{ride}_{day_int}_{model}.csv", "r") as csvfile:
 			ride_predicts = csv.reader(csvfile)
 			next(ride_predicts)

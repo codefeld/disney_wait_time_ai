@@ -18,8 +18,8 @@
         <tr>
           <th scope="col">Time</th>
           <th scope="col">Dense50</th>
-          <th scope="col">Dense100</th>
-          <th scope="col">LSTM1</th>
+          <th scope="col">LSTM50</th>
+          <th scope="col">LSTMall</th>
         </tr>
       </thead>
       <tbody>
@@ -27,8 +27,8 @@
 					<tr>
 						<td>{{ row['time'] }}</td>
 						<td><span class="badge text-bg-primary rounded-pill">{{ row['dense50'] }} min</span></td>
-						<td><span class="badge text-bg-primary rounded-pill">?</span></td>
-						<td><span class="badge text-bg-primary rounded-pill">?</span></td>
+						<td><span class="badge text-bg-success rounded-pill">{{ row['lstm50'] }} min</span></td>
+						<td><span class="badge text-bg-warning rounded-pill">?</span></td>
 					</tr>
         {% endfor %}
       </tbody>
@@ -66,6 +66,17 @@
         borderColor: '#007bff',
         borderWidth: 4,
         pointBackgroundColor: '#007bff'
+      },{
+        data: [
+				{% for row in predictions %}
+					{{ row['lstm50'] }},
+				{% endfor %}
+        ],
+        lineTension: 0,
+        backgroundColor: 'transparent',
+        borderColor: '#198754',
+        borderWidth: 4,
+        pointBackgroundColor: '#198754'
       }]
     },
     options: {
