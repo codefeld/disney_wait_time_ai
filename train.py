@@ -39,7 +39,7 @@ def train_model(ride):
 	model.compile(optimizer='adam', loss='mean_squared_error')
 
 	# Train the model
-	model.fit(X_train, y_train, epochs=10, batch_size=16, verbose=1)
+	model.fit(X_train, y_train, epochs=100, batch_size=16, verbose=1)
 
 	model.summary()
 	model.save(f"models/{ride}_dense50.keras")
@@ -49,4 +49,15 @@ def train_model(ride):
 	print(f'Mean Squared Error on Test Set: {loss}')
 
 if __name__ == "__main__":
-	train_model("pirates_of_caribbean")
+	train_model("7_dwarfs_train")
+	train_model("alien_saucers")
+	train_model("dinosaur")
+	train_model("expedition_everest")
+	train_model("flight_of_passage")
+	train_model("kilimanjaro_safaris")
+	train_model("navi_river")
+	train_model("rock_n_rollercoaster")
+	train_model("slinky_dog")
+	train_model("soarin")
+	train_model("spaceship_earth")
+	train_model("toy_story_mania")
