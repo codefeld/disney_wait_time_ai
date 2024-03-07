@@ -15,7 +15,7 @@ rides = {
 def get_cur_time():
 	eastern_timezone = pytz.timezone('US/Eastern')
 	return datetime.now(eastern_timezone)
-	return current_time_et.strftime('%H:%M:%S')
+	#return current_time_et.strftime('%H:%M:%S')
 
 def get_all_predictions(day):
 	predictions = {}
