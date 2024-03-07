@@ -6,51 +6,31 @@
 <div class="d-flex flex-column flex-md-row p-1 gap-4 align-items-center justify-content-center">
   Predicted wait time in minutes for each AI model architecture.
 </div>
+<div class="d-flex flex-column flex-md-row p-1 gap-4 align-items-center justify-content-center">
+  {{ day }} @ {{ time }}
+</div>
 <div class="d-flex flex-column flex-md-row p-4 gap-4 align-items-center justify-content-center">
   <div style="width:100%; max-width:800px;margin-inline:1.5em">
     <table class="table">
       <thead>
         <tr>
           <th scope="col"></th>
-          <th scope="col">ReLU1</th>
-          <th scope="col">ReLU2</th>
-          <th scope="col">LSTM1</th>
+          <th scope="col">Dense50</th>
+          <th scope="col">LSTM50</th>
+          <th scope="col">LSTMall</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">Dinosaur</th>
-          <td><span class="badge text-bg-primary rounded-pill">1 min</span></td>
-          <td><span class="badge text-bg-primary rounded-pill">2 min</span></td>
-          <td><span class="badge text-bg-primary rounded-pill">3 min</span></td>
-        </tr>
-        <tr>
-          <th scope="row">Kilimanjaro Safaris</th>
-          <td><span class="badge text-bg-primary rounded-pill">1 min</span></td>
-          <td><span class="badge text-bg-primary rounded-pill">21 min</span></td>
-          <td><span class="badge text-bg-primary rounded-pill">80 min</span></td>
-        </tr>
-        <tr>
-          <th scope="row">Expedition Everest</th>
-          <td colspan="2"><span class="badge text-bg-primary rounded-pill">80</span></td>
-          <td><span class="badge text-bg-primary rounded-pill">8</span></td>
-        </tr>
+				{% for ride in predictions %}
+					<tr>
+						<td><a href="/details/{{ ride['key'] }}">{{ ride['name'] }}</a></td>
+						<td><span class="badge text-bg-primary rounded-pill">{{ ride['dense50'] }} min</span></td>
+						<td><span class="badge text-bg-success rounded-pill">{{ ride['lstm50'] }} min</span></td>
+						<td><span class="badge text-bg-warning rounded-pill">? min</span></td>
+					</tr>
+        {% endfor %}
       </tbody>
     </table>
-    <!-- <ul class="list-group">
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        A list item
-        <span class="badge text-bg-primary rounded-pill">14</span>
-      </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        A second list item
-        <span class="badge text-bg-primary rounded-pill">2</span>
-      </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        A third list item
-        <span class="badge text-bg-primary rounded-pill">1</span>
-      </li>
-    </ul> -->
   </div>
 </div>
 {% endblock %}
