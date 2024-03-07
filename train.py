@@ -6,7 +6,7 @@ import wait_times
 
 def train_model(ride):
 	data_file = f"data/{ride}.csv"
-	dates, times, waits = wait_times.parse_wait_times(data_file)
+	dates, _, times, waits = wait_times.parse_wait_times(data_file)
 	ride_dates = np.array(dates)
 	ride_times = np.array(times)
 	ride_waits = np.array(waits)
@@ -27,7 +27,7 @@ def train_model(ride):
 	X_train, X_test, y_train, y_test = train_test_split(
 		X, ride_waits_scaled, test_size=0.2, random_state=42
 	)
-	
+
 	# Build the neural network model
 	model = tf.keras.Sequential([
 		tf.keras.layers.Input(shape=(2,)),
