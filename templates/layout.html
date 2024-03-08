@@ -10,14 +10,22 @@
 .selector-for-some-widget {
   box-sizing: content-box;
 }
+
+.text-column {
+  width:100%; 
+  max-width:600px; 
+  text-align: center;
+}
     </style>
   </head>
   <body>
     {% block content %}{% endblock %}
-    <div class="d-flex flex-column flex-md-row p-1 gap-4 align-items-center justify-content-center">
+    <div class="d-flex flex-column flex-md-row align-items-center justify-content-center">
+      <div style="width:100%; max-width:600px">
       Thank you to <a href="https://touringplans.com">Touring Plans</a> for releasing their historical data, which allowed me to 
       build this website. You can find the source for 
-      <a href="https://github.com/codefeld/disney_wait_time_ai"></a>this project on GitHub</div>.
+      <a href="https://github.com/codefeld/disney_wait_time_ai">this project on GitHub</a>.
+      </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
