@@ -22,16 +22,25 @@ def int_to_time(time_int):
 
 def parse_wait_times(filename):
 	dates = []
+	daysofweek = []
 	times = []
 	waits = []
+	metadata = {}
+	with open("data/metadata.csv", "r") as csvfile:
+		csv_reader = csv.DictReader(csvfile, delimiter=",")
+		for row in csv_reader:
+			metadata[row['DATE']] = {
+				'dayofweek': 0,
+			}
 	with open(filename, "r") as csvfile:
 		csv_reader = csv.DictReader(csvfile, delimiter=",")
 		for row in csv_reader:
-			if row["SPOSTMIN"] and int(row["SPOSTMIN"]) >= 0:
+			if row["SPOSTMIN"] and int(row["SPOSTMIN"]) >= 0 and row["date"] in metadata:
 				dates.append(date_to_int(row["date"]))
+				daysofweek.append(int(metadata[row["date"]]['dayofweek']))
 				times.append(time_to_int(row["datetime"].split()[1]))
 				waits.append(int(row["SPOSTMIN"]))
-	return dates, times, waits
+	return dates, daysofweek, times, waits
 
 
 
