@@ -56,6 +56,7 @@ if __name__ == "__main__":
 	train_model("flight_of_passage")
 	train_model("kilimanjaro_safaris")
 	train_model("navi_river")
+	train_model("pirates_of_caribbean")
 	train_model("rock_n_rollercoaster")
 	train_model("slinky_dog")
 	train_model("soarin")
