@@ -23,7 +23,7 @@
 					<th scope="col">Time</th>
 					<th scope="col">Dense50</th>
 					<th scope="col">LSTM50</th>
-					<th scope="col">LSTMall</th>
+					<th scope="col">LSTMw50</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -32,7 +32,7 @@
 						<td>{{ row['time'] }}</td>
 						<td><span class="badge text-bg-primary rounded-pill">{{ row['dense50'] | default('?') }} min</span></td>
 						<td><span class="badge text-bg-success rounded-pill">{{ row['lstm50'] | default('?') }} min</span></td>
-						<td><span class="badge text-bg-warning rounded-pill">? min</span></td>
+						<td><span class="badge text-bg-warning rounded-pill">{{ ride['lstmw50'] | default('?') }} min</span></td>
 					</tr>
 				{% endfor %}
 			</tbody>
