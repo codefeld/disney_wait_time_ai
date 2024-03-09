@@ -6,37 +6,9 @@ from tensorflow import keras
 import wait_times
 import csv
 from datetime import datetime
+import ml_helper
 
-def predict_wait_times(ride, day, precip, hightemp, lowtemp, start_hour, end_hour):
-	data_file = f"data/{ride}.csv"
-	data = wait_times.parse_wait_times(data_file)
-	ride_dates = np.array(data["dates"])
-	ride_daysofweek = np.array(data["daysofweek"])
-	ride_precip = np.array(data["precip"])
-	ride_hightemp = np.array(data["hightemps"])
-	ride_lowtemp = np.array(data["lowtemps"])
-	ride_times = np.array(data["times"])
-	ride_durations = np.array(data["waits"])
-
-
-	# Normalize data
-	scaler_dates = StandardScaler()
-	scaler_daysofweek = StandardScaler()
-	scaler_precip = StandardScaler()
-	scaler_hightemp = StandardScaler()
-	scaler_lowtemp = StandardScaler()
-	scaler_times = StandardScaler()
-	scaler_durations = StandardScaler()
-
-	scaler_dates.fit(ride_dates.reshape(-1, 1))
-	scaler_daysofweek.fit(ride_daysofweek.reshape(-1, 1))
-	scaler_precip.fit(ride_precip.reshape(-1, 1))
-	scaler_hightemp.fit(ride_hightemp.reshape(-1, 1))
-	scaler_lowtemp.fit(ride_lowtemp.reshape(-1, 1))
-	scaler_times.fit(ride_times.reshape(-1, 1))
-	scaler_durations.fit(ride_durations.reshape(-1, 1))
-
-	seq_length = 5  # Number of previous time steps to consider
+def predict_wait_times(ride, scalers, day, precip, hightemp, lowtemp, start_hour, end_hour):
 	model = keras.models.load_model(f"models/{ride}_lstmw50.keras")
 
 	# Normalize future event data
@@ -63,12 +35,12 @@ def predict_wait_times(ride, day, precip, hightemp, lowtemp, start_hour, end_hou
 		predict_times.append(wait_times.time_to_int(f"{hour}:45:00"))
 
 	# Normalize future event data
-	future_event_dates_scaled = scaler_dates.transform(np.array(predict_dates).reshape(-1, 1))
-	future_event_daysofweek_scaled = scaler_daysofweek.transform(np.array(predict_daysofweek).reshape(-1, 1))
-	future_event_precip_scaled = scaler_precip.transform(np.array(predict_precip).reshape(-1, 1))
-	future_event_hightemp_scaled = scaler_hightemp.transform(np.array(predict_hightemp).reshape(-1, 1))
-	future_event_lowtemp_scaled = scaler_lowtemp.transform(np.array(predict_lowtemp).reshape(-1, 1))
-	future_event_times_scaled = scaler_times.transform(np.array(predict_times).reshape(-1, 1))
+	future_event_dates_scaled = scalers["dates"].transform(np.array(predict_dates).reshape(-1, 1))
+	future_event_daysofweek_scaled = scalers["daysofweek"].transform(np.array(predict_daysofweek).reshape(-1, 1))
+	future_event_precip_scaled = scalers["precip"].transform(np.array(predict_precip).reshape(-1, 1))
+	future_event_hightemp_scaled = scalers["hightemps"].transform(np.array(predict_hightemp).reshape(-1, 1))
+	future_event_lowtemp_scaled = scalers["lowtemps"].transform(np.array(predict_lowtemp).reshape(-1, 1))
+	future_event_times_scaled = scalers["times"].transform(np.array(predict_times).reshape(-1, 1))
 
 	future_event_data_scaled = np.column_stack((future_event_dates_scaled, future_event_daysofweek_scaled, future_event_precip_scaled, future_event_hightemp_scaled, future_event_lowtemp_scaled, future_event_times_scaled))
 
@@ -85,7 +57,7 @@ def predict_wait_times(ride, day, precip, hightemp, lowtemp, start_hour, end_hou
 		predicted_duration_scaled = model.predict(X_future_seq)
 
 		# Inverse transform to get the actual predicted duration
-		predict_waits = scaler_durations.inverse_transform(predicted_duration_scaled)
+		predict_waits = scalers["waits"].inverse_transform(predicted_duration_scaled)
 		print(predict_waits)
 
 		with open(f"predictions/{ride}_{day_int}_lstmw50.csv", "a") as csv_file:
@@ -94,12 +66,13 @@ def predict_wait_times(ride, day, precip, hightemp, lowtemp, start_hour, end_hou
 
 if __name__ == "__main__":
 	for mk_ride in ["7_dwarfs_train"]:
-		predict_wait_times(mk_ride, "3/10/2024", 0.4, 76, 62, 8, 23)
-		predict_wait_times(mk_ride, "3/11/2024", 0, 73, 52, 8, 23)
-		predict_wait_times(mk_ride, "3/12/2024", 0, 78, 53, 8, 23)
-		predict_wait_times(mk_ride, "3/13/2024", 0.15, 76, 60, 8, 24)
-		predict_wait_times(mk_ride, "3/14/2024", 0, 82, 61, 8, 23)
-		predict_wait_times(mk_ride, "3/15/2024", 0, 85, 64, 8, 23)
+		scalers = ml_helper.fit_wait_times(mk_ride)
+		predict_wait_times(mk_ride, scalers, "3/10/2024", 0.4, 76, 62, 8, 23)
+		predict_wait_times(mk_ride, scalers, "3/11/2024", 0, 73, 52, 8, 23)
+		predict_wait_times(mk_ride, scalers, "3/12/2024", 0, 78, 53, 8, 23)
+		predict_wait_times(mk_ride, scalers, "3/13/2024", 0.15, 76, 60, 8, 24)
+		predict_wait_times(mk_ride, scalers, "3/14/2024", 0, 82, 61, 8, 23)
+		predict_wait_times(mk_ride, scalers, "3/15/2024", 0, 85, 64, 8, 23)
 	# for ep_ride in ["soarin", "spaceship_earth"]:
 	# 	predict_wait_times(ep_ride, "3/10/2024", 9, 21)
 	# 	predict_wait_times(ep_ride, "3/11/2024", 9, 23)
@@ -121,4 +94,4 @@ if __name__ == "__main__":
 	# 	predict_wait_times(ak_ride, "3/13/2024", 7, 8)
 	# 	predict_wait_times(ak_ride, "3/14/2024", 7, 8)
 	# 	predict_wait_times(ak_ride, "3/15/2024", 8, 8)
-	
+
