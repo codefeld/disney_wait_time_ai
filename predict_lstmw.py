@@ -72,7 +72,7 @@ def predict_wait_times(ride, day, precip, hightemp, lowtemp, start_hour, end_hou
 
 	future_event_data_scaled = np.column_stack((future_event_dates_scaled, future_event_daysofweek_scaled, future_event_precip_scaled, future_event_hightemp_scaled, future_event_lowtemp_scaled, future_event_times_scaled))
 
-	with open(f"predictions/{ride}_{day_int}_lstm50.csv", "w") as csv_file:
+	with open(f"predictions/{ride}_{day_int}_lstmw50.csv", "w") as csv_file:
 		csv_writer = csv.writer(csv_file)
 		csv_writer.writerow(["date", "time", "wait"])
 
@@ -88,7 +88,7 @@ def predict_wait_times(ride, day, precip, hightemp, lowtemp, start_hour, end_hou
 		predict_waits = scaler_durations.inverse_transform(predicted_duration_scaled)
 		print(predict_waits)
 
-		with open(f"predictions/{ride}_{day_int}_lstm50.csv", "a") as csv_file:
+		with open(f"predictions/{ride}_{day_int}_lstmw50.csv", "a") as csv_file:
 			csv_writer = csv.writer(csv_file)
 			csv_writer.writerow([day, wait_times.int_to_time(predict_times[i]), predict_waits[0][0]])
 
