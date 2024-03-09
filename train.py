@@ -2,30 +2,17 @@ import tensorflow as tf
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-import wait_times
+import ml_helper
 
 def train_model(ride):
-	data_file = f"data/{ride}.csv"
-	dates, _, times, waits = wait_times.parse_wait_times(data_file)
-	ride_dates = np.array(dates)
-	ride_times = np.array(times)
-	ride_waits = np.array(waits)
-
-	# Normalize data
-	scaler_dates = StandardScaler()
-	scaler_times = StandardScaler()
-	scaler_durations = StandardScaler()
-
-	ride_dates_scaled = scaler_dates.fit_transform(ride_dates.reshape(-1, 1))
-	ride_times_scaled = scaler_times.fit_transform(ride_times.reshape(-1, 1))
-	ride_waits_scaled = scaler_durations.fit_transform(ride_waits.reshape(-1, 1))
+	data = ml_helper.fit_transform_wait_times(ride)
 
 	# Combine dates and times into one input array
-	X = np.column_stack((ride_dates_scaled, ride_times_scaled))
+	X = np.column_stack((data["dates"], data["times"]))
 
 	# Split data into training and testing sets
 	X_train, X_test, y_train, y_test = train_test_split(
-		X, ride_waits_scaled, test_size=0.2, random_state=42
+		X, data["waits"], test_size=0.2, random_state=42
 	)
 
 	# Build the neural network model
