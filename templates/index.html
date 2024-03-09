@@ -1,42 +1,51 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="d-flex flex-column flex-md-row p-4 gap-4 align-items-center justify-content-center">
-  <div class="text-column">
-    <h1>Disney Wait Time Predictions</h1>
-  </div>
+	<div class="text-column">
+		<h1>Disney Wait Time Predictions</h1>
+	</div>
 </div>
 <div class="d-flex flex-column flex-md-row p-1 gap-4 align-items-center justify-content-center">
-  <div class="text-column">
-    Predicted wait time in minutes for each AI model architecture.
-  </div>
+	<div class="text-column">
+		Predicted wait time in minutes for each AI model architecture.
+	</div>
 </div>
 <div class="d-flex flex-column flex-md-row p-1 gap-4 align-items-center justify-content-center">
-  <div class="text-column">
-    {{ day }} @ {{ time }}
-  </div>
+	<div class="text-column">
+		<a href="/?day={{ prev_day }}&time={{ time }}">&lt;&lt; Prev</a>
+		| <b>{{ day }}</b> |
+		<a href="/?day={{ next_day }}&time={{ time }}">Next &gt;&gt;</a>
+	</div>
+</div>
+<div class="d-flex flex-column flex-md-row p-1 gap-4 align-items-center justify-content-center">
+	<div class="text-column">
+		<a href="/?day={{ cur_day }}&time={{ prev_time }}">&lt;&lt; Prev</a>
+		| <b>{{ time }}</b> |
+		<a href="/?day={{ cur_day }}&time={{ next_time }}">Next &gt;&gt;</a>
+	</div>
 </div>
 <div class="d-flex flex-column flex-md-row p-4 gap-4 align-items-center justify-content-center">
-  <div style="width:100%; max-width:800px;margin-inline:1.5em">
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col"></th>
-          <th scope="col">Dense50</th>
-          <th scope="col">LSTM50</th>
-          <th scope="col">LSTMall</th>
-        </tr>
-      </thead>
-      <tbody>
+	<div style="width:100%; max-width:800px;margin-inline:1.5em">
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col"></th>
+					<th scope="col">Dense50</th>
+					<th scope="col">LSTM50</th>
+					<th scope="col">LSTMall</th>
+				</tr>
+			</thead>
+			<tbody>
 				{% for ride in predictions %}
 					<tr>
-						<td><a href="/details/{{ ride['key'] }}">{{ ride['name'] }}</a></td>
-						<td><span class="badge text-bg-primary rounded-pill">{{ ride['dense50'] }} min</span></td>
-						<td><span class="badge text-bg-success rounded-pill">{{ ride['lstm50'] }} min</span></td>
+						<td><a href="/details/{{ ride['key'] }}?day={{ cur_day }}">{{ ride['name'] }}</a></td>
+						<td><span class="badge text-bg-primary rounded-pill">{{ ride['dense50'] | default('?') }} min</span></td>
+						<td><span class="badge text-bg-success rounded-pill">{{ ride['lstm50'] | default('?') }} min</span></td>
 						<td><span class="badge text-bg-warning rounded-pill">? min</span></td>
 					</tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
 </div>
 {% endblock %}
