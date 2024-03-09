@@ -79,4 +79,5 @@ def predict_wait_times(ride, day, start_hour, end_hour):
 			csv_writer.writerow([day, wait_times.int_to_time(predict_times[i]), predict_waits[0][0]])
 
 if __name__ == "__main__":
+	predict_wait_times("7_dwarfs_train", "3/10/2024", 8, 23)
 	predict_wait_times("pirates_of_caribbean", "3/10/2024", 8, 23)
