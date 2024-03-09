@@ -2,12 +2,12 @@ import tensorflow as tf
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-import wait_times
+import ml_helper
 
 seq_length = 5  # Number of previous time steps to consider
 
 def train_model(ride):
-	data = wait_times.fit_transform_wait_times(ride)
+	data = ml_helper.fit_transform_wait_times(ride)
 
 	# Combine dates and times into one input array
 	# these are the columns we'll use as input when we use the model to make a prediction after it's trained
