@@ -32,7 +32,7 @@
 					<th scope="col"></th>
 					<th scope="col">Dense50</th>
 					<th scope="col">LSTM50</th>
-					<th scope="col">LSTMall</th>
+					<th scope="col">LSTMw50</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -41,7 +41,7 @@
 						<td><a href="/details/{{ ride['key'] }}?day={{ cur_day }}">{{ ride['name'] }}</a></td>
 						<td><span class="badge text-bg-primary rounded-pill">{{ ride['dense50'] | default('?') }} min</span></td>
 						<td><span class="badge text-bg-success rounded-pill">{{ ride['lstm50'] | default('?') }} min</span></td>
-						<td><span class="badge text-bg-warning rounded-pill">? min</span></td>
+						<td><span class="badge text-bg-warning rounded-pill">{{ ride['lstmw50'] | default('?') }} min</span></td>
 					</tr>
 				{% endfor %}
 			</tbody>
