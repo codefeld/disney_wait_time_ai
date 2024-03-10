@@ -7,14 +7,44 @@ import os
 
 app = Flask(__name__, instance_relative_config=True)
 
-models = ["dense50", "lstm50", "lstmw50"]
+models = ["dense50", "densew50", "lstm50", "lstmw50"]
 
 rides = {
 	"pirates_of_caribbean" : {
 		"name": "Pirates of the Caribbean"
 	},
 	"7_dwarfs_train" : {
-		"name": "Seven Dwarfs"
+		"name": "Seven Dwarfs Mine Train"
+	},
+	"alien_saucers" : {
+		"name": "Alien Swirling Saucers"
+	},
+	"dinosaur" : {
+		"name": "DINOSAUR"
+	},
+	"expedition_everest" : {
+		"name": "Expedition Everest"
+	},
+	"flight_of_passage" : {
+		"name": "Flight of Passage"
+	},
+	"kilimanjaro_safaris" : {
+		"name": "Kilimanjaro Safaris"
+	},
+	"navi_river" : {
+		"name": "Na'vi River Journey"
+	},
+	"slinky_dog" : {
+		"name": "Slinky Dog Dash"
+	},
+	"soarin" : {
+		"name": "Soarin' Around the World"
+	},
+	"spaceship_earth" : {
+		"name": "Spaceship Earth"
+	},
+	"toy_story_mania" : {
+		"name": "Toy Story Mania!"
 	}
 }
 

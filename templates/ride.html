@@ -21,9 +21,10 @@
 			<thead>
 				<tr>
 					<th scope="col">Time</th>
-					<th scope="col">Dense50</th>
-					<th scope="col">LSTM50</th>
-					<th scope="col">LSTMw50</th>
+					<th scope="col">Dense</th>
+					<th scope="col">Densew</th>
+					<th scope="col">LSTM</th>
+					<th scope="col">LSTMw</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -31,6 +32,7 @@
 					<tr>
 						<td>{{ row['time'] }}</td>
 						<td><span class="badge text-bg-primary rounded-pill">{{ row['dense50'] | default('?') }} min</span></td>
+						<td><span class="badge text-bg-danger rounded-pill">{{ row['densew50'] | default('?') }} min</span></td>
 						<td><span class="badge text-bg-success rounded-pill">{{ row['lstm50'] | default('?') }} min</span></td>
 						<td><span class="badge text-bg-warning rounded-pill">{{ ride['lstmw50'] | default('?') }} min</span></td>
 					</tr>
