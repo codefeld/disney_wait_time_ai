@@ -65,7 +65,7 @@ def predict_wait_times(ride, scalers, day, precip, hightemp, lowtemp, start_hour
 			csv_writer.writerow([day, wait_times.int_to_time(predict_times[i]), predict_waits[0][0]])
 
 if __name__ == "__main__":
-	for mk_ride in ["7_dwarfs_train"]:
+	for mk_ride in ["7_dwarfs_train", "pirates_of_caribbean"]:
 		scalers = ml_helper.fit_wait_times(mk_ride)
 		predict_wait_times(mk_ride, scalers, "3/10/2024", 0.4, 76, 62, 8, 23)
 		predict_wait_times(mk_ride, scalers, "3/11/2024", 0, 73, 52, 8, 23)
@@ -73,25 +73,28 @@ if __name__ == "__main__":
 		predict_wait_times(mk_ride, scalers, "3/13/2024", 0.15, 76, 60, 8, 24)
 		predict_wait_times(mk_ride, scalers, "3/14/2024", 0, 82, 61, 8, 23)
 		predict_wait_times(mk_ride, scalers, "3/15/2024", 0, 85, 64, 8, 23)
-	# for ep_ride in ["soarin", "spaceship_earth"]:
-	# 	predict_wait_times(ep_ride, "3/10/2024", 9, 21)
-	# 	predict_wait_times(ep_ride, "3/11/2024", 9, 23)
-	# 	predict_wait_times(ep_ride, "3/12/2024", 9, 9)
-	# 	predict_wait_times(ep_ride, "3/13/2024", 9, 9)
-	# 	predict_wait_times(ep_ride, "3/14/2024", 9, 9)
-	# 	predict_wait_times(ep_ride, "3/15/2024", 9, 9)
-	# for hs_ride in ["alien_saucers", "toy_story_mania", "slinky_dog"]:
-	# 	predict_wait_times(hs_ride, "3/10/2024", 8, 9)
-	# 	predict_wait_times(hs_ride, "3/11/2024", 8, 9)
-	# 	predict_wait_times(hs_ride, "3/12/2024", 8, 9)
-	# 	predict_wait_times(hs_ride, "3/13/2024", 8, 9)
-	# 	predict_wait_times(hs_ride, "3/14/2024", 8, 9)
-	# 	predict_wait_times(hs_ride, "3/15/2024", 8, 9)
-	# for ak_ride in ["dinosaur", "expedition_everest", "flight_of_passage", "kilimanjaro_safaris", "navi_river"]:
-	# 	predict_wait_times(ak_ride, "3/10/2024", 8, 8)
-	# 	predict_wait_times(ak_ride, "3/11/2024", 8, 8)
-	# 	predict_wait_times(ak_ride, "3/12/2024", 8, 8)
-	# 	predict_wait_times(ak_ride, "3/13/2024", 7, 8)
-	# 	predict_wait_times(ak_ride, "3/14/2024", 7, 8)
-	# 	predict_wait_times(ak_ride, "3/15/2024", 8, 8)
+	for ep_ride in ["soarin", "spaceship_earth"]:
+		scalers = ml_helper.fit_wait_times(ep_ride)
+		predict_wait_times(ep_ride, scalers, "3/10/2024", 0.4, 76, 62, 9, 21)
+		predict_wait_times(ep_ride, scalers, "3/11/2024", 0, 73, 52, 9, 23)
+		predict_wait_times(ep_ride, scalers, "3/12/2024", 0, 78, 53, 9, 21)
+		predict_wait_times(ep_ride, scalers, "3/13/2024", 0.15, 76, 60, 9, 21)
+		predict_wait_times(ep_ride, scalers, "3/14/2024", 0, 82, 61, 9, 21)
+		predict_wait_times(ep_ride, scalers, "3/15/2024", 0, 85, 64, 9, 21)
+	for hs_ride in ["alien_saucers", "toy_story_mania", "slinky_dog"]:
+		scalers = ml_helper.fit_wait_times(hs_ride)
+		predict_wait_times(hs_ride, scalers, "3/10/2024", 0.4, 76, 62, 8, 21)
+		predict_wait_times(hs_ride, scalers, "3/11/2024", 0, 73, 52, 8, 21)
+		predict_wait_times(hs_ride, scalers, "3/12/2024", 0, 78, 53, 8, 21)
+		predict_wait_times(hs_ride, scalers, "3/13/2024", 0.15, 76, 60, 8, 21)
+		predict_wait_times(hs_ride, scalers, "3/14/2024", 0, 82, 61, 8, 21)
+		predict_wait_times(hs_ride, scalers, "3/15/2024", 0, 85, 64, 8, 21)
+	for ak_ride in ["dinosaur", "expedition_everest", "flight_of_passage", "kilimanjaro_safaris", "navi_river"]:
+		scalers = ml_helper.fit_wait_times(ak_ride)
+		predict_wait_times(ak_ride, scalers, "3/10/2024", 0.4, 76, 62, 8, 20)
+		predict_wait_times(ak_ride, scalers, "3/11/2024", 0, 73, 52, 8, 20)
+		predict_wait_times(ak_ride, scalers, "3/12/2024", 0, 78, 53, 8, 20)
+		predict_wait_times(ak_ride, scalers, "3/13/2024", 0.15, 76, 60, 7, 20)
+		predict_wait_times(ak_ride, scalers, "3/14/2024", 0, 82, 61, 7, 20)
+		predict_wait_times(ak_ride, scalers, "3/15/2024", 0, 85, 64, 8, 20)
 

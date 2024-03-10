@@ -2,7 +2,7 @@ import tensorflow as tf
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-import wait_times
+import ml_helper
 
 seq_length = 5  # Number of previous time steps to consider
 
@@ -12,36 +12,17 @@ rides = {
 }
 
 def train_model(ride):
-	data_file = f"data/{ride}.csv"
-	dates, daysofweek, times, waits = wait_times.parse_wait_times(data_file)
-	# ride_name = np.full(len(dates), rides[ride])
-	ride_dates = np.array(dates)
-	ride_daysofweek = np.array(daysofweek)
-	ride_times = np.array(times)
-	ride_durations = np.array(waits)
-
-	# Normalize data
-	#scaler_names = StandardScaler()
-	scaler_dates = StandardScaler()
-	scaler_daysofweek = StandardScaler()
-	scaler_times = StandardScaler()
-	scaler_durations = StandardScaler()
-
-	#ride_names_scaled = scaler_names.fit_transform(np.array(rides.values()).reshape(-1, 1))
-	ride_dates_scaled = scaler_dates.fit_transform(ride_dates.reshape(-1, 1))
-	ride_daysofweek_scaled = scaler_daysofweek.fit_transform(ride_daysofweek.reshape(-1, 1))
-	ride_times_scaled = scaler_times.fit_transform(ride_times.reshape(-1, 1))
-	ride_durations_scaled = scaler_durations.fit_transform(ride_durations.reshape(-1, 1))
+	data = ml_helper.fit_transform_wait_times(ride)
 
 	# Combine dates and times into one input array
-	# these are the colums we'll use as input when we use the model to make a prediction after it's trained
-	X = np.column_stack((ride_dates_scaled, ride_daysofweek_scaled, ride_times_scaled))
+	# these are the columns we'll use as input when we use the model to make a prediction after it's trained
+	X = np.column_stack((data["dates"], data["daysofweek"], data["times"]))
 
 	# Create sequences for LSTM
 	X_seq, y_seq = [], []
-	for i in range(len(ride_dates_scaled) - seq_length):
+	for i in range(len(data["dates"]) - seq_length):
 			X_seq.append(X[i:i + seq_length])
-			y_seq.append(ride_durations_scaled[i + seq_length])
+			y_seq.append(data["waits"][i + seq_length])
 
 	X_seq = np.array(X_seq)
 	y_seq = np.array(y_seq)
