@@ -1,0 +1,51 @@
+import tensorflow as tf
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+import ml_helper
+
+def train_model(ride):
+	data = ml_helper.fit_transform_wait_times(ride)
+
+	# Combine dates and times into one input array
+	X = np.column_stack((data["dates"], data["daysofweek"], data["precip"], data["hightemps"], data["lowtemps"], data["times"]))
+
+	# Split data into training and testing sets
+	X_train, X_test, y_train, y_test = train_test_split(
+		X, data["waits"], test_size=0.2, random_state=42
+	)
+
+	# Build the neural network model
+	model = tf.keras.Sequential([
+		tf.keras.layers.Input(shape=(6,)),
+		tf.keras.layers.Dense(50, activation='relu'),
+		tf.keras.layers.Dense(1, activation='linear')
+	])
+
+	# Compile the model
+	model.compile(optimizer='adam', loss='mean_squared_error')
+
+	# Train the model
+	model.fit(X_train, y_train, epochs=100, batch_size=16, verbose=1)
+
+	model.summary()
+	model.save(f"models/{ride}_densew50.keras")
+
+	# Evaluate the model on the test set
+	loss = model.evaluate(X_test, y_test)
+	print(f'Mean Squared Error on Test Set: {loss}')
+
+if __name__ == "__main__":
+	train_model("7_dwarfs_train")
+	train_model("alien_saucers")
+	train_model("dinosaur")
+	train_model("expedition_everest")
+	train_model("flight_of_passage")
+	train_model("kilimanjaro_safaris")
+	train_model("navi_river")
+	train_model("pirates_of_caribbean")
+	train_model("rock_n_rollercoaster")
+	train_model("slinky_dog")
+	train_model("soarin")
+	train_model("spaceship_earth")
+	train_model("toy_story_mania")
