@@ -6,12 +6,8 @@ import ml_helper
 
 seq_length = 5  # Number of previous time steps to consider
 
-rides = {
-	"pirates_of_caribbean": 1,
-	"dinosaur": 2,
-}
-
 def train_model(ride):
+	print(f"[Training {ride} - lstm]")
 	data = ml_helper.fit_transform_wait_times(ride)
 
 	# Combine dates and times into one input array

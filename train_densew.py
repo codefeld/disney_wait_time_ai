@@ -5,6 +5,7 @@ from sklearn.preprocessing import StandardScaler
 import ml_helper
 
 def train_model(ride):
+	print(f"[Training {ride} - densew]")
 	data = ml_helper.fit_transform_wait_times(ride)
 
 	# Combine dates and times into one input array
