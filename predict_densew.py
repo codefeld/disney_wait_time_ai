@@ -8,8 +8,10 @@ import wait_times
 import csv
 import ml_helper
 
+model_name = "densew2"
+
 def predict_wait_times(ride, scalers, date, precip, hightemp, lowtemp, start_hour, end_hour):
-	model = keras.models.load_model(f"models/{ride}_densew50.keras")
+	model = keras.models.load_model(f"models/{ride}_{model_name}.keras")
 
 	# Normalize future event data
 	predict_dates = []
@@ -43,7 +45,7 @@ def predict_wait_times(ride, scalers, date, precip, hightemp, lowtemp, start_hou
 	future_event_lowtemp_scaled = scalers["lowtemps"].transform(np.array(predict_lowtemps).reshape(-1, 1))
 	future_event_times_scaled = scalers["times"].transform(np.array(predict_times).reshape(-1, 1))
 
-	future_event_data_scaled = np.column_stack((future_event_dates_scaled, future_event_daysofweek_scaled, future_event_precip_scaled, future_event_hightemp_scaled, future_event_lowtemp_scaled, future_event_times_scaled))
+	future_event_data_scaled = np.column_stack((future_event_dates_scaled, future_event_daysofweek_scaled, future_event_hightemp_scaled, future_event_lowtemp_scaled, future_event_times_scaled))
 
 	# Predict future event duration
 	predicted_duration_scaled = model.predict(future_event_data_scaled)
@@ -53,7 +55,7 @@ def predict_wait_times(ride, scalers, date, precip, hightemp, lowtemp, start_hou
 	# print(predicted_duration)
 	# print(f"Predicted Wait Time for {ride}:")
 	# print(f"Date: {future_event_date.flatten()[0]}, Time: {future_event_time.flatten()[0]}, Predicted Wait Time: {predicted_duration.flatten()[0]:.2f} minutes")
-	with open(f"predictions/{ride}_{day_int}_densew50.csv", "w") as csv_file:
+	with open(f"predictions/{ride}_{day_int}_{model_name}.csv", "w") as csv_file:
 		csv_writer = csv.writer(csv_file)
 		csv_writer.writerow(["date", "time", "wait"])
 		for i in range(len(predict_dates)):
