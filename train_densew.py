@@ -4,12 +4,14 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 import ml_helper
 
+model_name = "densew2"
+
 def train_model(ride):
-	print(f"[Training {ride} - densew]")
+	print(f"[Training {ride} - {model_name}]")
 	data = ml_helper.fit_transform_wait_times(ride)
 
 	# Combine dates and times into one input array
-	X = np.column_stack((data["dates"], data["daysofweek"], data["precip"], data["hightemps"], data["lowtemps"], data["times"]))
+	X = np.column_stack((data["dates"], data["daysofweek"], data["hightemps"], data["lowtemps"], data["times"]))
 
 	# Split data into training and testing sets
 	X_train, X_test, y_train, y_test = train_test_split(
@@ -18,7 +20,7 @@ def train_model(ride):
 
 	# Build the neural network model
 	model = tf.keras.Sequential([
-		tf.keras.layers.Input(shape=(6,)),
+		tf.keras.layers.Input(shape=(5,)),
 		tf.keras.layers.Dense(50, activation='relu'),
 		tf.keras.layers.Dense(1, activation='linear')
 	])
@@ -30,7 +32,7 @@ def train_model(ride):
 	model.fit(X_train, y_train, epochs=100, batch_size=16, verbose=1)
 
 	model.summary()
-	model.save(f"models/{ride}_densew50.keras")
+	model.save(f"models/{ride}_{model_name}.keras")
 
 	# Evaluate the model on the test set
 	loss = model.evaluate(X_test, y_test)
