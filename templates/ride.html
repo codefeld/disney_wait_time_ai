@@ -27,9 +27,9 @@
 				<tr>
 					<th scope="col">Time</th>
 					<th scope="col">Dense</th>
-					<th scope="col">Densew</th>
+					<th scope="col">Dense(w)</th>
 					<th scope="col">LSTM</th>
-					<th scope="col">LSTMw</th>
+					<th scope="col">LSTM(w)</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -80,12 +80,34 @@
 			},{
 				data: [
 				{% for row in predictions %}
+					{{ row['densew50'] }},
+				{% endfor %}
+				],
+				lineTension: 0,
+				backgroundColor: 'transparent',
+				borderColor: '#dc3545',
+				borderWidth: 4,
+				pointBackgroundColor: '#198754'
+			},{
+				data: [
+				{% for row in predictions %}
 					{{ row['lstm50'] }},
 				{% endfor %}
 				],
 				lineTension: 0,
 				backgroundColor: 'transparent',
 				borderColor: '#198754',
+				borderWidth: 4,
+				pointBackgroundColor: '#198754'
+			},{
+				data: [
+				{% for row in predictions %}
+					{{ row['lstmw50'] }},
+				{% endfor %}
+				],
+				lineTension: 0,
+				backgroundColor: 'transparent',
+				borderColor: '#ffc107',
 				borderWidth: 4,
 				pointBackgroundColor: '#198754'
 			}]
