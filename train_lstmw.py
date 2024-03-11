@@ -12,7 +12,7 @@ def train_model(ride):
 
 	# Combine dates and times into one input array
 	# these are the columns we'll use as input when we use the model to make a prediction after it's trained
-	X = np.column_stack((data["dates"], data["daysofweek"], data["precip"], data["hightemps"], data["lowtemps"], data["times"]))
+	X = np.column_stack((data["dates"], data["daysofweek"], data["hightemps"], data["lowtemps"], data["times"]))
 
 	# Create sequences for LSTM
 	X_seq, y_seq = [], []
@@ -32,7 +32,7 @@ def train_model(ride):
 	)
 
 	model = tf.keras.Sequential([
-			tf.keras.layers.Input(shape=(seq_length,6)),
+			tf.keras.layers.Input(shape=(seq_length,5)),
 			tf.keras.layers.LSTM(50, activation='relu'),
 			tf.keras.layers.Dense(1, activation='linear')
 	])
