@@ -64,33 +64,18 @@ def predict_wait_times(ride, scalers, date, precip, hightemp, lowtemp, start_hou
 if __name__ == "__main__":
 	for mk_ride in ["7_dwarfs_train", "pirates_of_caribbean"]:
 		scalers = ml_helper.fit_wait_times(mk_ride)
-		predict_wait_times(mk_ride, scalers, "3/10/2024", 0.4, 76, 62, 8, 23)
-		predict_wait_times(mk_ride, scalers, "3/11/2024", 0, 73, 52, 8, 23)
-		predict_wait_times(mk_ride, scalers, "3/12/2024", 0, 78, 53, 8, 23)
-		predict_wait_times(mk_ride, scalers, "3/13/2024", 0.15, 76, 60, 8, 24)
-		predict_wait_times(mk_ride, scalers, "3/14/2024", 0, 82, 61, 8, 23)
-		predict_wait_times(mk_ride, scalers, "3/15/2024", 0, 85, 64, 8, 23)
+		for date, values in ml_helper.dates().items():
+			predict_wait_times(mk_ride, scalers, date, values['precip'], values['hightemp'], values['lowtemp'], values['mk_open'], values['mk_close'])
 	for ep_ride in ["soarin", "spaceship_earth"]:
 		scalers = ml_helper.fit_wait_times(ep_ride)
-		predict_wait_times(ep_ride, scalers, "3/10/2024", 0.4, 76, 62, 9, 21)
-		predict_wait_times(ep_ride, scalers, "3/11/2024", 0, 73, 52, 9, 23)
-		predict_wait_times(ep_ride, scalers, "3/12/2024", 0, 78, 53, 9, 21)
-		predict_wait_times(ep_ride, scalers, "3/13/2024", 0.15, 76, 60, 9, 21)
-		predict_wait_times(ep_ride, scalers, "3/14/2024", 0, 82, 61, 9, 21)
-		predict_wait_times(ep_ride, scalers, "3/15/2024", 0, 85, 64, 9, 21)
+		for date, values in ml_helper.dates().items():
+			predict_wait_times(mk_ride, scalers, date, values['precip'], values['hightemp'], values['lowtemp'], values['ep_open'], values['ep_close'])
 	for hs_ride in ["alien_saucers", "toy_story_mania", "slinky_dog"]:
 		scalers = ml_helper.fit_wait_times(hs_ride)
-		predict_wait_times(hs_ride, scalers, "3/10/2024", 0.4, 76, 62, 8, 21)
-		predict_wait_times(hs_ride, scalers, "3/11/2024", 0, 73, 52, 8, 21)
-		predict_wait_times(hs_ride, scalers, "3/12/2024", 0, 78, 53, 8, 21)
-		predict_wait_times(hs_ride, scalers, "3/13/2024", 0.15, 76, 60, 8, 21)
-		predict_wait_times(hs_ride, scalers, "3/14/2024", 0, 82, 61, 8, 21)
-		predict_wait_times(hs_ride, scalers, "3/15/2024", 0, 85, 64, 8, 21)
+		for date, values in ml_helper.dates().items():
+			predict_wait_times(mk_ride, scalers, date, values['precip'], values['hightemp'], values['lowtemp'], values['hs_open'], values['hs_close'])
 	for ak_ride in ["dinosaur", "expedition_everest", "flight_of_passage", "kilimanjaro_safaris", "navi_river"]:
 		scalers = ml_helper.fit_wait_times(ak_ride)
-		predict_wait_times(ak_ride, scalers, "3/10/2024", 0.4, 76, 62, 8, 20)
-		predict_wait_times(ak_ride, scalers, "3/11/2024", 0, 73, 52, 8, 20)
-		predict_wait_times(ak_ride, scalers, "3/12/2024", 0, 78, 53, 8, 20)
-		predict_wait_times(ak_ride, scalers, "3/13/2024", 0.15, 76, 60, 7, 20)
-		predict_wait_times(ak_ride, scalers, "3/14/2024", 0, 82, 61, 7, 20)
-		predict_wait_times(ak_ride, scalers, "3/15/2024", 0, 85, 64, 8, 20)
+		for date, values in ml_helper.dates().items():
+			predict_wait_times(mk_ride, scalers, date, values['precip'], values['hightemp'], values['lowtemp'], values['ak_open'], values['ak_close'])
+	
