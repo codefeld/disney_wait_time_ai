@@ -16,9 +16,6 @@ rides = {
 	"7_dwarfs_train" : {
 		"name": "Seven Dwarfs Mine Train"
 	},
-	"alien_saucers" : {
-		"name": "Alien Swirling Saucers"
-	},
 	"dinosaur" : {
 		"name": "DINOSAUR"
 	},
@@ -34,17 +31,20 @@ rides = {
 	"navi_river" : {
 		"name": "Na'vi River Journey"
 	},
+	"alien_saucers" : {
+		"name": "Alien Swirling Saucers"
+	},
 	"slinky_dog" : {
 		"name": "Slinky Dog Dash"
+	},
+	"toy_story_mania" : {
+		"name": "Toy Story Mania!"
 	},
 	"soarin" : {
 		"name": "Soarin' Around the World"
 	},
 	"spaceship_earth" : {
 		"name": "Spaceship Earth"
-	},
-	"toy_story_mania" : {
-		"name": "Toy Story Mania!"
 	}
 }
 
