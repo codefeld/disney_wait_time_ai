@@ -50,9 +50,9 @@ rides = {
 
 def get_datetime():
 	curdate = get_cur_time()
-	day = "3/10/2024"
+	day = "10/08/2025"
 	time = "12:00:00"
-	if curdate.month == 3 and curdate.year == 2024 and curdate.day in [10,11,12,13,14,15]:
+	if curdate.month == 10 and curdate.year == 2025 and curdate.day in [8,9,10,11]:
 		day = curdate.strftime('%m/%d/%Y')
 		time = curdate.strftime('%H:00:00')
 	return day, time
@@ -114,7 +114,7 @@ def index():
 	day, time = get_datetime()
 	day_param = request.args.get('day')
 	if day_param:
-		day = f"3/{day_param}/2024"
+		day = f"10/{day_param}/2025"
 	time_param = request.args.get('time')
 	if time_param:
 		time = time_param
@@ -133,7 +133,7 @@ def details(ride):
 	day, _ = get_datetime()
 	day_param = request.args.get('day')
 	if day_param:
-		day = f"3/{day_param}/2024"
+		day = f"10/{day_param}/2025"
 	prev_day, cur_day, next_day = get_prev_cur_next_day(day)
 	predictions = get_predictions(ride, day)
 	flat_predictions = flatten_predictions(predictions)
