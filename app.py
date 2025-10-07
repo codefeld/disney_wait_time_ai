@@ -7,7 +7,7 @@ import os
 
 app = Flask(__name__, instance_relative_config=True)
 
-models = ["dense50", "densew50", "lstm50", "lstmw50"]
+models = ["dense50", "densew2", "lstm50", "lstmw50"]
 
 rides = {
 	"pirates_of_caribbean" : {
