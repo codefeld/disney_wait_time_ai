@@ -72,14 +72,14 @@ if __name__ == "__main__":
 	for ep_ride in ["soarin", "spaceship_earth"]:
 		scalers = ml_helper.fit_wait_times(ep_ride)
 		for date, values in ml_helper.dates().items():
-			predict_wait_times(mk_ride, scalers, date, values['precip'], values['hightemp'], values['lowtemp'], values['ep_open'], values['ep_close'])
+			predict_wait_times(ep_ride, scalers, date, values['precip'], values['hightemp'], values['lowtemp'], values['ep_open'], values['ep_close'])
 	for hs_ride in ["alien_saucers", "toy_story_mania", "slinky_dog"]:
 		scalers = ml_helper.fit_wait_times(hs_ride)
 		for date, values in ml_helper.dates().items():
-			predict_wait_times(mk_ride, scalers, date, values['precip'], values['hightemp'], values['lowtemp'], values['hs_open'], values['hs_close'])
+			predict_wait_times(hs_ride, scalers, date, values['precip'], values['hightemp'], values['lowtemp'], values['hs_open'], values['hs_close'])
 	for ak_ride in ["dinosaur", "expedition_everest", "flight_of_passage", "kilimanjaro_safaris", "navi_river"]:
 		scalers = ml_helper.fit_wait_times(ak_ride)
 		for date, values in ml_helper.dates().items():
-			predict_wait_times(mk_ride, scalers, date, values['precip'], values['hightemp'], values['lowtemp'], values['ak_open'], values['ak_close'])
+			predict_wait_times(ak_ride, scalers, date, values['precip'], values['hightemp'], values['lowtemp'], values['ak_open'], values['ak_close'])
 	
 
