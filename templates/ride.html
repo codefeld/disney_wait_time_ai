@@ -37,7 +37,7 @@
 					<tr>
 						<td>{{ row['time'] }}</td>
 						<td><span class="badge text-bg-primary rounded-pill">{{ row['dense50'] | default('?') }} min</span></td>
-						<td><span class="badge text-bg-danger rounded-pill">{{ row['densew50'] | default('?') }} min</span></td>
+						<td><span class="badge text-bg-danger rounded-pill">{{ row['densew2'] | default('?') }} min</span></td>
 						<td><span class="badge text-bg-success rounded-pill">{{ row['lstm50'] | default('?') }} min</span></td>
 						<td><span class="badge text-bg-warning rounded-pill">{{ row['lstmw50'] | default('?') }} min</span></td>
 					</tr>
@@ -80,7 +80,7 @@
 			},{
 				data: [
 				{% for row in predictions %}
-					{{ row['densew50'] }},
+					{{ row['densew2'] }},
 				{% endfor %}
 				],
 				lineTension: 0,
